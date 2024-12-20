@@ -1,0 +1,18 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+#include <raylib.h>
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+
+#define SHIP_MAX_SPEED 200.0f
+#define SHIP_ROTATION_SPEED 100.0f
+#define SHIP_ACCELERATION 150.0f
+#define SHIP_DECELERATION 50.0f
+
+#define LASER_SPEED 300.0f
+#define LASER_MAX_DISTANCE 600.0f
+#define MAX_LASERS 50
+
+#endif
