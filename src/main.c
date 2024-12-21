@@ -3,7 +3,6 @@
 #include "laser.h"
 #include "constants.h"
 
-
 int main() 
 {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Asteroids");
