@@ -2,6 +2,7 @@
 #include "ship.h"
 #include "laser.h"
 #include "constants.h"
+#include "asteroid.h"
 
 int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Asteroids");
@@ -14,17 +15,27 @@ int main() {
     .speed = 0.0f
   };
 
-  Laser lasers[MAX_LASERS] = {0}; 
+  Laser lasers[MAX_LASERS] = {0};
+  Asteroid smallAsteroids[MAX_SMALL_ASTEROIDS] = {0};
+  Asteroid mediumAsteroids[MAX_MEDIUM_ASTEROIDS] = {0};
+  Asteroid largeAsteroids[MAX_LARGE_ASTEROIDS] = {0};
+
   int laserCount = 0;          
 
   while (!WindowShouldClose()) {
     float deltaTime = GetFrameTime();
-
     shipMove(&player, deltaTime);
 
     if (IsKeyPressed(KEY_SPACE) && laserCount < MAX_LASERS) {
       lasers[laserCount++] = laserCreate(&player);
     }
+
+    Asteroid a;
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+      a = asteroidCreate();
+    }
+    asteroidDraw(&a);
+    asteroidUpdate(&a);
 
     for (int i = 0; i < laserCount; i++) {
       if (lasers[i].is_active) {

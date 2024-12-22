@@ -42,7 +42,6 @@ Vector2 asteroidRandomDirection(Vector2 spawnPosition) {
   return (Vector2){ .x = rotatedX, .y = rotatedY };
 }
 
-
 int asteroidRandomSize() {
   int allSizes[] = {
     SMALL_ASTEROID,
@@ -66,20 +65,20 @@ Asteroid asteroidCreate() {
   };
 }
 
-
 bool asteroidOnScreen(Asteroid *A) {
   return (
-    A->position.x > 0 && A->position.x < SCREEN_WIDTH &&
-    A->position.y > 0 && A->position.y < SCREEN_HEIGHT
+    A->position.x > -300 && A->position.x < SCREEN_WIDTH+300 &&
+    A->position.y > -300 && A->position.y < SCREEN_HEIGHT+300
   );
 }
 
 void asteroidUpdate(Asteroid *A) {
-  if (asteroidOnScreen(A)) {
-    A->position.x += A->direction.x * A->speed;
-    A->position.y += A->direction.y * A->speed;
+  A->is_active = asteroidOnScreen(A);
+  if (A->is_active) {
+    A->position.x += A->direction.x * A->speed * GetFrameTime();
+    A->position.y += A->direction.y * A->speed * GetFrameTime();
 
-    A->rotationAngle += A->rotationSpeed;
+    A->rotationAngle += A->rotationSpeed * GetFrameTime();
     if (A->rotationAngle > 360) A->rotationAngle = 0.0f;
   }
 }
@@ -92,4 +91,16 @@ void asteroidDraw(Asteroid *A) {
     A->rotationAngle,
     RAYWHITE
   );
+}
+
+void asteroidSpawn() {
+
+}
+
+void asteroidColision() {
+
+}
+
+void asteroidDestroyed() {
+
 }

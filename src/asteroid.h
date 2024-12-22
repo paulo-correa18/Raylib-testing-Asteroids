@@ -26,7 +26,11 @@ Vector2 asteroidRandomPosition();
 Vector2 asteroidRandomDirection();
 int asteroidRandomSize();
 Asteroid asteroidCreate();
+bool asteroidOnScreen(Asteroid *A);
 void asteroidUpdate(Asteroid *A);
 void asteroidDraw(Asteroid *A);
+void asteroidSpawn();
+void asteroidColision();
+void asteroidDestroyed();
 
 #endif
