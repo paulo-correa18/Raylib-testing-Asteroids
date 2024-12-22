@@ -26,13 +26,22 @@ Vector2 asteroidRandomPosition() {
   };
 }
 
-Vector2 asteroidRandomDirection() {
-  float angle = GetRandomValue(-60, +60);
-  return (Vector2) {
-    .x = cosf(angle),
-    .y = sinf(angle),
+Vector2 asteroidRandomDirection(Vector2 spawnPosition) {
+  Vector2 baseDirection = {
+    .x = SCREEN_CENTER_X - spawnPosition.x,
+    .y = SCREEN_CENTER_Y - spawnPosition.y
   };
+
+  baseDirection = Vector2Normalize(baseDirection);
+
+  float randomAngle = GetRandomValue(-60, 60) * DEG2RAD;
+
+  float rotatedX = baseDirection.x * cosf(randomAngle) - baseDirection.y * sinf(randomAngle);
+  float rotatedY = baseDirection.x * sinf(randomAngle) + baseDirection.y * cosf(randomAngle);
+
+  return (Vector2){ .x = rotatedX, .y = rotatedY };
 }
+
 
 int asteroidRandomSize() {
   int allSizes[] = {
@@ -45,9 +54,10 @@ int asteroidRandomSize() {
 }
 
 Asteroid asteroidCreate() {
+  Vector2 spawnPosition = asteroidRandomPosition();
   return (Asteroid) {
-    .position = asteroidRandomPosition(),
-    .direction = asteroidRandomDirection(),
+    .position = spawnPosition,
+    .direction = asteroidRandomDirection(spawnPosition),
     .size = asteroidRandomSize(),
     .rotationAngle = 0.0f,
     .rotationSpeed = GetRandomValue(50, 150),
@@ -55,6 +65,7 @@ Asteroid asteroidCreate() {
     .is_active = true,
   };
 }
+
 
 bool asteroidOnScreen(Asteroid *A) {
   return (
@@ -65,7 +76,11 @@ bool asteroidOnScreen(Asteroid *A) {
 
 void asteroidUpdate(Asteroid *A) {
   if (asteroidOnScreen(A)) {
+    A->position.x += A->direction.x * A->speed;
+    A->position.y += A->direction.y * A->speed;
 
+    A->rotationAngle += A->rotationSpeed;
+    if (A->rotationAngle > 360) A->rotationAngle = 0.0f;
   }
 }
 

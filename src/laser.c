@@ -27,7 +27,7 @@ void laserDraw(Laser *L) {
       (int)L->position.y,
       (int)(L->position.x - L->direction.x * 10),
       (int)(L->position.y - L->direction.y * 10),
-      RAYWHITE
+      GREEN
     );
   }
 }
