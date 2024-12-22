@@ -1,10 +1,8 @@
 #include "laser.h"
 #include "constants.h"
 
-Laser laserCreate(Ship *S) 
-{
-  return (Laser) 
-  {
+Laser laserCreate(Ship *S) {
+  return (Laser) {
     .direction = S->direction,
     .position = S->position,
     .distance = 0.0f,
@@ -12,10 +10,8 @@ Laser laserCreate(Ship *S)
   };
 }
 
-void laserUpdate(Laser *L, float deltaTime) 
-{
-  if (L->is_active) 
-  {
+void laserUpdate(Laser *L, float deltaTime) {
+  if (L->is_active) {
     L->position.x += L->direction.x * LASER_SPEED * deltaTime;
     L->position.y += L->direction.y * LASER_SPEED * deltaTime;
     L->distance += LASER_SPEED * deltaTime;
@@ -24,10 +20,8 @@ void laserUpdate(Laser *L, float deltaTime)
   }
 }
 
-void laserDraw(Laser *L) 
-{
-  if (L->is_active) 
-  {
+void laserDraw(Laser *L) {
+  if (L->is_active) {
     DrawLine (
       (int)L->position.x,
       (int)L->position.y,

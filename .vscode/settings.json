@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "constants.h": "c",
+    "ship.h": "c",
+    "raylib.h": "c",
+    "raymath.h": "c"
+  }
+}

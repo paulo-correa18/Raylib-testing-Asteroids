@@ -5,8 +5,7 @@
 #include <raylib.h>
 #include "ship.h"
 
-typedef struct 
-{
+typedef struct {
   Vector2 position;
   Vector2 direction;
   float distance;
