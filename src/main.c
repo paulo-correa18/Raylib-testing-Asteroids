@@ -20,7 +20,10 @@ int main() {
   Asteroid mediumAsteroids[MAX_MEDIUM_ASTEROIDS] = {0};
   Asteroid largeAsteroids[MAX_LARGE_ASTEROIDS] = {0};
 
-  int laserCount = 0;          
+  int laserCount = 0;
+  // int smallAsteroidCount = 0;
+  // int mediumAsteroidCount = 0;
+  // int largeAsteroidCount = 0;        
 
   while (!WindowShouldClose()) {
     float deltaTime = GetFrameTime();
@@ -29,13 +32,6 @@ int main() {
     if (IsKeyPressed(KEY_SPACE) && laserCount < MAX_LASERS) {
       lasers[laserCount++] = laserCreate(&player);
     }
-
-    Asteroid a;
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-      a = asteroidCreate();
-    }
-    asteroidDraw(&a);
-    asteroidUpdate(&a);
 
     for (int i = 0; i < laserCount; i++) {
       if (lasers[i].is_active) {
@@ -51,6 +47,33 @@ int main() {
     for (int i = 0; i < laserCount; i++) {
       if (lasers[i].is_active)
         laserDraw(&lasers[i]);
+    }
+
+    for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++) {
+      if(!smallAsteroids[i].is_active) {
+        smallAsteroids[i] = asteroidCreate();
+      } else {
+        asteroidUpdate(&smallAsteroids[i], deltaTime);
+        asteroidDraw(&smallAsteroids[i]);
+      }
+    }
+
+    for (int i = 0; i < MAX_MEDIUM_ASTEROIDS; i++) {
+      if(!mediumAsteroids[i].is_active) {
+        mediumAsteroids[i] = asteroidCreate();
+      } else {
+        asteroidUpdate(&mediumAsteroids[i], deltaTime);
+        asteroidDraw(&mediumAsteroids[i]);
+      }
+    }
+
+    for (int i = 0; i < MAX_LARGE_ASTEROIDS; i++) {
+      if(!largeAsteroids[i].is_active) {
+        largeAsteroids[i] = asteroidCreate();
+      } else {
+        asteroidUpdate(&largeAsteroids[i], deltaTime);
+        asteroidDraw(&largeAsteroids[i]);
+      }
     }
 
     EndDrawing();

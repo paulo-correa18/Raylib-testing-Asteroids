@@ -27,10 +27,8 @@ Vector2 asteroidRandomDirection();
 int asteroidRandomSize();
 Asteroid asteroidCreate();
 bool asteroidOnScreen(Asteroid *A);
-void asteroidUpdate(Asteroid *A);
+void asteroidUpdate(Asteroid *A, float deltaTime);
 void asteroidDraw(Asteroid *A);
-void asteroidSpawn();
-void asteroidColision();
-void asteroidDestroyed();
+void asteroidSpawn(Asteroid allAsteroids[]);
 
 #endif

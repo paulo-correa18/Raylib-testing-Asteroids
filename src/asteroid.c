@@ -4,19 +4,19 @@ Vector2 asteroidRandomPosition() {
   float xRandom, yRandom;
   if (GetRandomValue(0,1)) {
     if (GetRandomValue(0,1)) {
-      xRandom = GetRandomValue(-300, 0);
-      yRandom = GetRandomValue(-300, 0);
+      xRandom = GetRandomValue(-50, 0);
+      yRandom = GetRandomValue(-50, 0);
     } else {
-      xRandom = GetRandomValue(SCREEN_WIDTH, SCREEN_WIDTH+300);
-      yRandom = GetRandomValue(-300, 0);
+      xRandom = GetRandomValue(SCREEN_WIDTH, SCREEN_WIDTH+50);
+      yRandom = GetRandomValue(-50, 0);
     }
   } else {
     if (GetRandomValue(0,1)) {
-      xRandom = GetRandomValue(SCREEN_WIDTH, SCREEN_WIDTH+300);
-      yRandom = GetRandomValue(SCREEN_HEIGHT, SCREEN_HEIGHT+300);
+      xRandom = GetRandomValue(SCREEN_WIDTH, SCREEN_WIDTH+50);
+      yRandom = GetRandomValue(SCREEN_HEIGHT, SCREEN_HEIGHT+50);
     } else {
-      xRandom = GetRandomValue(-300, 0);
-      yRandom = GetRandomValue(SCREEN_HEIGHT, SCREEN_HEIGHT+300);
+      xRandom = GetRandomValue(-50, 0);
+      yRandom = GetRandomValue(SCREEN_HEIGHT, SCREEN_HEIGHT+50);
     }
   }
 
@@ -34,7 +34,7 @@ Vector2 asteroidRandomDirection(Vector2 spawnPosition) {
 
   baseDirection = Vector2Normalize(baseDirection);
 
-  float randomAngle = GetRandomValue(-60, 60) * DEG2RAD;
+  float randomAngle = GetRandomValue(-30, 30) * DEG2RAD;
 
   float rotatedX = baseDirection.x * cosf(randomAngle) - baseDirection.y * sinf(randomAngle);
   float rotatedY = baseDirection.x * sinf(randomAngle) + baseDirection.y * cosf(randomAngle);
@@ -67,18 +67,19 @@ Asteroid asteroidCreate() {
 
 bool asteroidOnScreen(Asteroid *A) {
   return (
-    A->position.x > -300 && A->position.x < SCREEN_WIDTH+300 &&
-    A->position.y > -300 && A->position.y < SCREEN_HEIGHT+300
+    A->position.x > -50 && A->position.x < SCREEN_WIDTH+50 &&
+    A->position.y > -50 && A->position.y < SCREEN_HEIGHT+50
   );
 }
 
-void asteroidUpdate(Asteroid *A) {
+void asteroidUpdate(Asteroid *A, float deltaTime) {
   A->is_active = asteroidOnScreen(A);
+  
   if (A->is_active) {
-    A->position.x += A->direction.x * A->speed * GetFrameTime();
-    A->position.y += A->direction.y * A->speed * GetFrameTime();
+    A->position.x += A->direction.x * A->speed * deltaTime;
+    A->position.y += A->direction.y * A->speed * deltaTime;
 
-    A->rotationAngle += A->rotationSpeed * GetFrameTime();
+    A->rotationAngle += A->rotationSpeed * deltaTime;
     if (A->rotationAngle > 360) A->rotationAngle = 0.0f;
   }
 }
@@ -86,21 +87,9 @@ void asteroidUpdate(Asteroid *A) {
 void asteroidDraw(Asteroid *A) {
   DrawPolyLines(
     A->position,
-    7,
-    A->size*30,
+    9,
+    A->size*15,
     A->rotationAngle,
     RAYWHITE
   );
-}
-
-void asteroidSpawn() {
-
-}
-
-void asteroidColision() {
-
-}
-
-void asteroidDestroyed() {
-
 }
